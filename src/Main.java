@@ -84,7 +84,7 @@ public class Main {
         } else {
             System.out.println("Joueur perdant : " + joueurEnCours);
         }
-        afficherPlateau(plateau);*/
+        afficherPlateau(plateau);
 
         Enfant bill = new Enfant("SMITH", "Bill");
         bill.presentation();
@@ -98,6 +98,23 @@ public class Main {
         bill.estAmoureux();
         bill.tomberAmoureux(charlotte);
         bill.estAmoureux();
+
+        Vehicule vehicule = new Vehicule(2);
+        System.out.println(vehicule);
+
+
+        Centaure centaure = new Centaure();
+        new Centaure();
+        new Centaure();
+        new Centaure();
+        System.out.println(centaure.getPopulation());*/
+
+        try {
+            System.out.println("resultat : "+factorielle(1400));
+        } catch (factException e) {
+            System.out.println("exception");
+            e.printStackTrace();
+        }
     }
     public static int[] rechercherCoup(String[][] plateau) {
         for(int i = 0; i< plateau.length; i++) {
@@ -158,7 +175,10 @@ public class Main {
         }
         System.out.println(ligne);
     }
-    private static int factorielle (int limite) {
+    private static int factorielle (int limite) throws factException {
+        if (limite > 14) {
+            throw new factException(limite);
+        }
         int resultat = 1;
         for (int i = 2; i <= limite; i++) {
             resultat = resultat*i;
