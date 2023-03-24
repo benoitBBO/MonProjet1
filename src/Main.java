@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import famille.Enfant;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,39 +38,93 @@ public class Main {
         System.out.println("resultat : "+factorielle(5));
         dessinerRectangle(5,3);*/
 
-        String[][] plateau = creerPlateau(3);
-        String joueurEnCours = "X";
+        /*
         Scanner sc = new Scanner(System.in);
-        while (!qqnGagne(plateau)){
+        String[][] plateau = creerPlateau(3);
+        System.out.println("Jouer contre IA random : (Y/N) ");
+        String retourIA = sc.nextLine();
+        System.out.println("retourIA : "+retourIA);
+        boolean isIA;
+        isIA = "Y".equals(retourIA);
+
+        boolean plateauFull = false;
+        boolean qqnGagne = false;
+        String joueurEnCours = "X";
+        while (!qqnGagne && !plateauFull){
+            int entreeCol = 0;
+            int entreeLigne = 0;
+            if (isIA && joueurEnCours == "O") {
+                int[] coupIA = rechercherCoup(plateau);
+                entreeCol = coupIA[1];
+                entreeLigne = coupIA[0];
+            } else {
+                System.out.println("Joueur " + joueurEnCours + " Entrez une valeur colonne : ");
+                entreeCol = sc.nextInt();
+                System.out.println(entreeCol);
+                System.out.println("Joueur " + joueurEnCours + " Entrez une valeur ligne : ");
+                entreeLigne = sc.nextInt();
+                System.out.println(entreeLigne);
+            }
+            if (plateau[entreeLigne][entreeCol] == "-") {
+                plateau[entreeLigne][entreeCol] = String.valueOf(joueurEnCours);
+            } else {
+                System.out.println("==> Erreur sur la position <==");
+            }
             afficherPlateau(plateau);
-            System.out.println("Entrez une valeur ligne : ");
-            int entreeLigne = sc.nextInt();
-            System.out.println(entreeLigne);
-            System.out.println("Entrez une valeur colonne : ");
-            int entreeCol = sc.nextInt();
-            System.out.println(entreeCol);
-            plateau[entreeLigne][entreeCol] = String.valueOf(joueurEnCours);
+            plateauFull = plateauFull(plateau);
+            qqnGagne = qqnGagne(plateau, joueurEnCours);
             if (joueurEnCours == "X") {
                 joueurEnCours = "O";
             } else {
                 joueurEnCours = "X";
             }
         }
-        System.out.println("Joueur perdant : "+joueurEnCours);
-        afficherPlateau(plateau);
-
-    }
-    public static boolean qqnGagne(String[][] plateau) {
-        if ((plateau[0][0] == "X" && plateau[1][0] == "X" && plateau[2][0] == "X") ||
-                (plateau[0][1] == "X" && plateau[1][1] == "X" && plateau[2][1] == "X") ||
-                (plateau[0][2] == "X" && plateau[1][2] == "X" && plateau[2][2] == "X") ||
-                (plateau[0][0] == "X" && plateau[1][1] == "X" && plateau[2][2] == "X")) {
-            return true;
+        if (plateauFull && !qqnGagne) {
+            System.out.println("-- Match Nul");
+        } else {
+            System.out.println("Joueur perdant : " + joueurEnCours);
         }
-        if ((plateau[0][0] == "O" && plateau[1][0] == "O" && plateau[2][0] == "O") ||
-                (plateau[0][1] == "O" && plateau[1][1] == "O" && plateau[2][1] == "O") ||
-                (plateau[0][2] == "O" && plateau[1][2] == "O" && plateau[2][2] == "O") ||
-                (plateau[0][0] == "O" && plateau[1][1] == "O" && plateau[2][2] == "O")) {
+        afficherPlateau(plateau);*/
+
+        Enfant bill = new Enfant("SMITH", "Bill");
+        bill.presentation();
+        Enfant charlotte = new Enfant();
+        charlotte.setPrenom("Charlotte");
+        charlotte.presentation();
+        charlotte.joueAuBallon(bill);
+        charlotte.estAmoureux();
+        charlotte.tomberAmoureux(bill);
+        charlotte.estAmoureux();
+        bill.estAmoureux();
+        bill.tomberAmoureux(charlotte);
+        bill.estAmoureux();
+    }
+    public static int[] rechercherCoup(String[][] plateau) {
+        for(int i = 0; i< plateau.length; i++) {
+            for (int j = 0; j < plateau.length; j++) {
+                if (plateau[i][j] == "-") {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[0];
+    }
+    public static boolean plateauFull(String[][] plateau) {
+        for(int i = 0; i< plateau.length; i++) {
+            for (int j = 0; j < plateau.length; j++) {
+                if (plateau[i][j] == "-") {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public static boolean qqnGagne(String[][] plateau, String joueur) {
+        if ((plateau[0][0] == joueur && plateau[1][0] == joueur && plateau[2][0] == joueur) ||
+                (plateau[0][1] == joueur && plateau[1][1] == joueur && plateau[2][1] == joueur) ||
+                (plateau[0][2] == joueur && plateau[1][2] == joueur && plateau[2][2] == joueur) ||
+                (plateau[2][0] == joueur && plateau[1][1] == joueur && plateau[0][2] == joueur) ||
+                (plateau[0][0] == joueur && plateau[1][1] == joueur && plateau[2][2] == joueur)) {
             return true;
         }
         return false;
@@ -87,14 +139,14 @@ public class Main {
         return plateau;
     }
     public static void afficherPlateau(String[][] plateau) {
-        String ligne = "";
+        String table = "";
         for(int i = 0; i< plateau.length; i++){
             for(int j = 0; j < plateau.length; j++) {
-                ligne += plateau[i][j];
+                table += plateau[i][j];
             }
-            ligne += "\n";
+            table += "\n";
         }
-        System.out.println(ligne);
+        System.out.println(table);
     }
     public static void dessinerRectangle (int longueur, int largeur) {
         String ligne = "";
